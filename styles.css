@@ -1,0 +1,137 @@
+/*importação da fonte personalizada icons*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/*importação do bootstrap icons*/
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+
+:root {
+  --font: 'Inter', sans-serif;
+  --bg: #fffffB;
+  --bg-secondary: #F8F2F4;
+  --text: #000000;
+  --text-secondary: #494949;
+  --primary: #E53170;
+  --secondary: #B07289;
+  --actions: #F25F4C;
+  --highlight: #ffffff;
+  --shadow: 0px 0px 10px #E6E6E6;
+}
+
+body {
+  background: var(--bg);
+}
+
+body, input, button, textarea {
+  font-family: var(--font);
+}
+
+main {
+  max-width: 1000px;
+  padding: 1.2rem;
+  margin: 0 auto;
+}
+
+button.btn {
+  font-weight: 600;
+  font-size: calc(0.6rem + 0.5vw);
+}
+
+.task {
+  width: 100%;
+  box-shadow: var(--shadow);
+  border-radius: 20px;
+  padding: 1.5rem 1rem;
+  display: flex;
+}
+
+.task span {
+  color: var(--secondary);
+  font-size: calc(0.5rem + 0.5vw);
+  display: inline-block;
+  background: var(--bg-secondary);
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-weight: 600;
+}
+
+.btn.btn-default {
+  background-color: var(--primary);
+  color: var(--highlight);
+}
+
+.btn.btn-default:hover {
+  filter: brightness(1.1);
+}
+
+.btn.btn-secondary {
+  border: 1px solid var(--primary);
+  background-color: var(--bg);
+  color: var(--primary);
+}
+
+.btn.btn-secondary:hover {
+  color: var(--text);
+}
+
+.form-control.input-default {
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+label.checkbox-container {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 1px solid var(--secondary);
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #f0f0ef;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--secondary);
+}
+
+.checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 8px;
+  height: 13px;
+  border: solid white;
+  border-radius: 1px;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+input[type=checkbox] {
+  opacity: 0;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2, h4 {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 500;
+  color: var(--primary);
+}
