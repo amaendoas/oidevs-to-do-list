@@ -176,6 +176,11 @@ button.btn-add-task {
   background: none;
 }
 
+.container-task{
+  overflow-y: scroll;
+}
+
+
 /* Carol */
 
 .taskList-card {
@@ -226,4 +231,3 @@ button.btn-add-task {
 .btnAction:hover {
   cursor: pointer;
 }
-
