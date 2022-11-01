@@ -30,7 +30,6 @@ btnSave.addEventListener("click", function () {
     //Salvar os dados na array de objetos e localStorage
     arrTasks.push(task);
     updateDB();
-    divImgInitial.style.display = "none";
     //limpar os campos digitados
     clearInputs();
     alert("Tarefa adicionada com sucesso");
