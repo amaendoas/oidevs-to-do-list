@@ -15,11 +15,13 @@
   --bg-secondary: #f8f2f4;
   --text: #000000;
   --text-secondary: #494949;
+  --text-placeholder: #8b8b8b;
   --primary: #e53170;
   --secondary: #b07289;
   --actions: #f25f4c;
   --highlight: #ffffff;
   --shadow: 0px 0px 10px #e6e6e6;
+  --shadow-error: 0px 0px 10px var(--actions);
 }
 
 body {
@@ -76,6 +78,9 @@ button.btn {
 
 .btn.btn-default:hover {
   filter: brightness(1.1);
+  border: 1px solid var(--primary);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .btn.btn-secondary {
@@ -88,8 +93,8 @@ button.btn {
   color: var(--text);
 }
 
-.form-control.input-default {
-  box-shadow: var(--shadow);
+.form-control.input-default.input-error {
+  box-shadow: var(--shadow-error);
   border: none;
 }
 
@@ -147,6 +152,10 @@ main h1 {
 h2,
 h4 {
   font-weight: 600;
+}
+
+h4 {
+  margin-top: 8px !important;
 }
 
 h3 {
@@ -246,4 +255,24 @@ button.btn-add-task {
 
 .btnAction:hover {
   cursor: pointer;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(27%) sepia(6%) saturate(19%) hue-rotate(340deg) brightness(97%)
+    contrast(90%);
+}
+
+.form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--text-placeholder) !important;
+  opacity: 1; /* Firefox */
+}
+
+.form-control.input-default {
+  box-shadow: var(--shadow);
+  border: none;
+  color: (--text) !important;
 }

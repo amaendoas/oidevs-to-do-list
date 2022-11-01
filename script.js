@@ -5,8 +5,10 @@ const category = document.getElementById("input-category");
 const date = document.getElementById("input-date");
 const time = document.getElementById("input-time");
 const btnSave = document.getElementById("btn-save");
+const btnCloseModal = document.getElementById("btn-close-modal");
 const divImgInitial = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("newTaskModal");
+
 const body = document.querySelector("body");
 
 //Coleção de dados
@@ -19,6 +21,17 @@ const arrTasks =
 // funções - Recuperação dados
 
 btnSave.addEventListener("click", function () {
+  const hasTitle = title.value != "";
+  const hasDate = date.value != "";
+
+  if (!hasTitle) {
+    title.classList.add("input-error");
+  }
+
+  if (!hasDate) {
+    date.classList.add("input-error");
+  }
+
   if (title.value != "" && date.value != "") {
     const task = {
       id: arrTasks.length + 1,
@@ -34,14 +47,12 @@ btnSave.addEventListener("click", function () {
     clearInputs();
     alert("Tarefa adicionada com sucesso");
   } else {
-    title.style.boxShadow = "0px 0px 10px var(--actions)";
-    date.style.boxShadow = "0px 0px 10px var(--actions)";
     //Retirar os boxShadows e adicionando o focus a partir do click
     title.addEventListener("click", function () {
-      title.style.boxShadow = "var(--shadow)";
+      title.classList.remove("input-error");
     });
     date.addEventListener("click", function () {
-      date.style.boxShadow = "var(--shadow)";
+      date.classList.remove("input-error");
     });
   }
 });
@@ -51,10 +62,20 @@ function updateDB() {
   localStorage.setItem("todoList", JSON.stringify(arrTasks));
 }
 
-//Limpar inputs
+//Limpar inputs (formato default)
 function clearInputs() {
   title.value = "";
   category.value = "";
   date.value = "";
   time.value = "";
 }
+
+btnCloseModal.addEventListener("click", function () {
+  //limpeza dos values dos inputs
+  clearInputs();
+  //recuperação de styles default dos inputs obrigatórios
+  title.classList.remove("input-error");
+  date.classList.remove("input-error");
+});
+
+console.log(arrTasks);
