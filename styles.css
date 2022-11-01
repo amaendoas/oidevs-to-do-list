@@ -108,14 +108,13 @@ label.checkbox-container {
   width: 20px;
   border: 1px solid var(--secondary);
   border-radius: 8px;
-
 }
 
-.checkbox-container:hover input~.checkmark {
+.checkbox-container:hover input ~ .checkmark {
   background-color: #f0f0ef;
 }
 
-.checkbox-container input:checked~.checkmark {
+.checkbox-container input:checked ~ .checkmark {
   background-color: var(--secondary);
 }
 
@@ -133,7 +132,7 @@ label.checkbox-container {
   transform: rotate(45deg);
 }
 
-.checkbox-container input:checked~.checkmark:after {
+.checkbox-container input:checked ~ .checkmark:after {
   display: block;
 }
 
@@ -164,10 +163,19 @@ form {
   display: flex;
   padding: 0 15px;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+}
+/* VITÓRIA */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 
-/* Vitória */
+main {
+  height: 100%;
+}
 
 .img-column {
   height: 80%;
@@ -186,7 +194,7 @@ button.btn-add-task {
   background: none;
 }
 
-.container-task{
+.container-task {
   overflow-y: scroll;
 }
 
@@ -204,14 +212,13 @@ button.btn-add-task {
   margin: 10px 0;
 }
 
-.task-info-container{
+.task-info-container {
   display: flex;
   flex-direction: column;
-  align-items: center
-
+  align-items: center;
 }
 
-.task-info{
+.task-info {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -221,18 +228,18 @@ button.btn-add-task {
   margin: 0 10px;
 }
 
-.task-details{
+.task-details {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 5px;
 }
 
-.btnAction{
+.btnAction {
   color: var(--actions);
 }
 
-.task-btnAction{
+.task-btnAction {
   flex-direction: row;
   margin-left: auto;
 }
