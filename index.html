@@ -38,8 +38,8 @@
           <div class="d-flex justify-content-end">
               <button type="button"
               class="btn-add-task"
-              data-toggle="modal"
-              data-target="#newTaskModal">
+              data-bs-toggle="modal"
+              data-bs-target="#newTaskModal">
                   <img src=" ./img/add-button.svg" id="add-task" alt="add-task">
               </button>
           </div>
@@ -113,15 +113,14 @@
     <div
       class="modal fade"
       id="newTaskModal"
-      role="dialog"
       tabindex="-1"
-      aria-labelledby="modalLabel"
+      aria-labelledby="modalTitle"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title fs-5 title-task" id="modalLabel">
+            <h3 class="modal-title fs-5 title-task" id="modalTitle">
               Nova Tarefa
             </h3>
             <button
