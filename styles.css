@@ -140,6 +140,7 @@ h3 {
   color: var(--primary);
 }
 
+
 .title-task {
   display: flex;
   width: 100%;
@@ -152,3 +153,37 @@ form {
   flex-direction: column;
   gap: 15px;
 }
+
+/* VITÓRIA */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+main {
+  height: 100%;
+}
+
+.img-column {
+  height: 80%;
+}
+
+main h2 {
+  margin: 32px 0 0 0;
+}
+
+.text-center h5 {
+  margin: 20px;
+}
+
+button.btn-add-task {
+  border: none;
+  background: none;
+}
+
+.container-task{
+  overflow-y: scroll;
+}
+
