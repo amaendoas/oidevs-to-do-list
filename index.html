@@ -26,20 +26,23 @@
   <body>
     <main>
         <div class="d-flex flex-column h-100">
-        <h1>To Do List</h1>
-        <h2>Suas Tarefas</h2>
+          <h1>To Do List</h1>
+          <h2>Suas Tarefas</h2>
 
-        <div class="img-column row align-items-center ">
-            <div class="col mx-auto text-center">
-                <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list">
-                <h5>Sua Lista de tarefas está vazia</h5>
-            </div>
-        </div>
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn-add-task">
-                <img src=" ./img/add-button.svg" id="add-task" alt="add-task">
-            </button>
-        </div>
+          <div class="img-column row align-items-center ">
+              <div class="col mx-auto text-center">
+                  <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list">
+                  <h5>Sua Lista de tarefas está vazia</h5>
+              </div>
+          </div>
+          <div class="d-flex justify-content-end">
+              <button type="button"
+              class="btn-add-task"
+              data-toggle="modal"
+              data-target="#newTaskModal">
+                  <img src=" ./img/add-button.svg" id="add-task" alt="add-task">
+              </button>
+          </div>
 
         <section id="taskDate">
             <h3>Sexta-feira, 4 de novembro</h3>
@@ -108,15 +111,16 @@
     <!-- Modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      id="newTaskModal"
+      role="dialog"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="modalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title fs-5 title-task" id="exampleModalLabel">
+            <h3 class="modal-title fs-5 title-task" id="modalLabel">
               Nova Tarefa
             </h3>
             <button
@@ -172,12 +176,11 @@
         </div>
       </div>
     </div>
- 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
-    >$('exampleModalCenter').modal('show')</script>
+    >$('newTaskModal').modal('show')</script>
     <script src="./script.js"></script>
 </body>
 
