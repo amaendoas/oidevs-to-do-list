@@ -28,18 +28,82 @@
         <div class="d-flex flex-column h-100">
         <h1>To Do List</h1>
         <h2>Suas Tarefas</h2>
-            <div class="img-column row align-items-center container-task">
-                <div class="col mx-auto text-center ">
-                    <img src="../img/todo-list.svg" alt="img-todo-list" class="img-todo-list">
-                    <h5>Sua Lista de tarefas está vazia</h5>
-                </div>
-            </div>
-            <div class="d-flex justify-content-end align-self-end justify-self-end">
-                <button type="button" class="btn-add-task ">
-                    <img src=" ../img/add-button.svg" id="add-task" alt="add-task">
-                </button>
+
+        <div class="img-column row align-items-center ">
+            <div class="col mx-auto text-center">
+                <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list">
+                <h5>Sua Lista de tarefas está vazia</h5>
             </div>
         </div>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn-add-task">
+                <img src=" ./img/add-button.svg" id="add-task" alt="add-task">
+            </button>
+        </div>
+
+        <section id="taskDate">
+            <h3>Sexta-feira, 4 de novembro</h3>
+            <ul class="task">
+                <li class="taskList-card">
+                    <div class="task-info-container">
+                        <div class="task-info">
+                            <label class="checkbox-container">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <h5>Ir ao supermercado</h5>
+                        </div>
+                        <div class="task-details">
+                            <span class="category">Compras</span>
+                            <aside>
+                                <i class="bi bi-clock"></i>
+                                <time class="time">7:00</time>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <div class="task-btnAction">
+                        <button class="btnAction">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btnAction">
+                            <i class="bi bi-trash"></i>
+                        </button>
+
+                    </div>
+                </li>
+
+                <li class="taskList-card">
+                    <div class="task-info-container">
+                        <div class="task-info">
+                            <label class="checkbox-container">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <h5>Academia</h5>
+                        </div>
+                        <div class="task-details">
+                            <span class="category">Saúde</span>
+                            <aside>
+                                <i class="bi bi-clock"></i>
+                                <time class="time">14:00</time>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <div class="task-btnAction">
+                        <button class="btnAction">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btnAction">
+                            <i class="bi bi-trash"></i>
+                        </button>
+
+                    </div>
+                </li>
+            </ul>
+        </section>
+
     </main>
     <!-- Modal -->
     <div
@@ -108,14 +172,13 @@
         </div>
       </div>
     </div>
-    
-      
-    </script>
+ 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     >$('exampleModalCenter').modal('show')</script>
     <script src="./script.js"></script>
-  </body>
+</body>
+
 </html>
