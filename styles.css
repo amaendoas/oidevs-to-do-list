@@ -1,19 +1,19 @@
 /*importação da fonte personalizada icons*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 /*importação do bootstrap icons*/
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 
 :root {
-  --font: 'Inter', sans-serif;
-  --bg: #fffffB;
-  --bg-secondary: #F8F2F4;
+  --font: "Inter", sans-serif;
+  --bg: #fffffb;
+  --bg-secondary: #f8f2f4;
   --text: #000000;
   --text-secondary: #494949;
-  --primary: #E53170;
-  --secondary: #B07289;
-  --actions: #F25F4C;
+  --primary: #e53170;
+  --secondary: #b07289;
+  --actions: #f25f4c;
   --highlight: #ffffff;
-  --shadow: 0px 0px 10px #E6E6E6;
+  --shadow: 0px 0px 10px #e6e6e6;
 }
 
 body {
@@ -128,7 +128,7 @@ label.checkbox-container {
   display: block;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   opacity: 0;
 }
 
@@ -145,8 +145,18 @@ h3 {
   font-weight: 500;
   color: var(--primary);
 }
+.title-task {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
-
+form {
+  display: flex;
+  padding: 0 15px;
+  flex-direction: column;
+  gap: 15px;
+}
 /* Vitória */
 
 body {
@@ -179,7 +189,6 @@ button.btn-add-task {
 .container-task{
   overflow-y: scroll;
 }
-
 
 /* Carol */
 
