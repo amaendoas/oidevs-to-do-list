@@ -8,9 +8,15 @@ const btnSave = document.getElementById("btn-save");
 const btnCloseModal = document.getElementById("btn-close-modal");
 const divInitialImg = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("new-task-modal");
+const btnAddTask = document.getElementById("btn-add-task")
 const initialImg = document.getElementById("div-img-initial"); 
 const taskList = document.getElementById("task-list");
+//adicionado por amanda
+const alertDiv = document.getElementById("alert-div");
+const alertMsg = document.getElementById("alert-msg");
+const alertCloseBtn = document.getElementById("alert-close-btn")
 
+alertContent(btnSave, "Tarefa adicionada com sucesso!")
 //Coleção de dados
 
 // const arrTasks = [];
@@ -91,6 +97,7 @@ btnCloseModal.addEventListener("click", function () {
   location.reload();
 });
 
+// ADICIONADO POR NATASHA
 
 function hideInitialImg() {
   let div = document.getElementById("div-content");
@@ -109,7 +116,6 @@ function showInitialImg(arrTasks) {
     `;
   }
 }
-
 function loadTasks() {
   taskList.innerHTML = "";
   arrTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
@@ -159,7 +165,6 @@ function editTask(){}
 
 loadTasks();
 
-
 function done(checkbox, index) {
   if (checkbox.checked) {
     arrTasks[index].status  = "checked";
@@ -168,3 +173,34 @@ function done(checkbox, index) {
   }
   updateDB(arrTasks)
 }
+
+/*alerta - AMANDA */
+
+alertCloseBtn.addEventListener("click", hideAlert)
+
+function alertContent(btn, msg) {
+  showAlert(btn)
+  setAlertMsg(msg)
+}
+
+function showAlert(btn) {
+  btn.addEventListener("click", () => {
+    alertDiv.classList.add("show")
+    alertDiv.classList.add("showAlert")
+    alertDiv.classList.remove("hide")
+    setTimeout(hideAlert, 5000)
+  })
+}
+
+function setAlertMsg(msg) {
+  alertMsg.innerHTML = msg
+}
+
+function hideAlert() {
+  alertDiv.classList.add("hide")
+  alertDiv.classList.remove("show")
+}
+
+
+
+
