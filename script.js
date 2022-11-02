@@ -8,7 +8,7 @@ const btnSave = document.getElementById("btn-save");
 const btnCloseModal = document.getElementById("btn-close-modal");
 const divInitialImg = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("new-task-modal");
-const initialImg = document.getElementById("div-img-initial"); // ADICIONADO POR NATASHA
+const initialImg = document.getElementById("div-img-initial"); 
 const taskList = document.getElementById("task-list");
 
 //Coleção de dados
@@ -58,7 +58,8 @@ function addTaskDB() {
     title: title.value,
     category: category.value ? category.value : "Geral",
     date: date.value,
-    time: time.value ? time.value : "Dia todo", 
+    time: time.value ? time.value : "Dia todo",
+    status: "",
   };
   //Salvar os dados na array de objetos e localStorage
   arrTasks.push(task);
@@ -91,17 +92,15 @@ btnCloseModal.addEventListener("click", function () {
 });
 
 
-// ADICIONADO POR NATASHA
-
 function hideInitialImg() {
-  let div = document.getElementById('div-content');
+  let div = document.getElementById("div-content");
     div.innerHTML = "";
 }
 
 
 function showInitialImg(arrTasks) {
   if (arrTasks.length === 0) {
-    let div = document.getElementById('div-content');
+    let div = document.getElementById("div-content");
     div.innerHTML = `
       <div class="col mx-auto text-center" id="div-img-initial">
         <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list" />
@@ -114,19 +113,19 @@ function showInitialImg(arrTasks) {
 function loadTasks() {
   taskList.innerHTML = "";
   arrTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
-  arrTasks.forEach((item) => {
-    insertItemTela(item.id, item.title, item.category, item.date, item.time);
+  arrTasks.forEach((item, index) => {
+    insertItemTela(item.id, item.title, item.category, item.date, item.time, item.status, index);
   });
 }
 
-function insertItemTela(id, title, category, date, time) {
+function insertItemTela(id, title, category, date, time, status, index) {
   let li = document.createElement("li");
   li.classList.add("taskList-card");
   li.innerHTML = `
     <div class="task-info-container">
       <div class="task-info">
         <label class="checkbox-container">
-          <input type="checkbox"/>
+          <input type="checkbox" ${status} onchange="done(this, ${index});"/>
           <span class="checkmark"></span>
         </label>
       <h5>${title}</h5>
@@ -150,7 +149,7 @@ function insertItemTela(id, title, category, date, time) {
         <i class="bi bi-trash"></i>
       </button>
     </div>
-    `
+    `;
   taskList.appendChild(li);
 }
 
@@ -159,3 +158,12 @@ function deleteTask(){}
 function editTask(){}
 
 loadTasks();
+
+function done(checkbox, index) {
+  if (checkbox.checked) {
+    arrTasks[index].status  = "checked";
+  } else {
+    arrTasks[index].status = "";
+  }
+  updateDB(arrTasks)
+}
