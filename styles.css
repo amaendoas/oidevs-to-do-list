@@ -56,8 +56,6 @@ button.btn {
 
 .task {
   width: 100%;
-  box-shadow: var(--shadow);
-  border-radius: 20px;
   padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
@@ -66,7 +64,7 @@ button.btn {
   margin: 0;
 }
 
-.task span {
+#task span {
   color: var(--secondary);
   font-size: calc(0.5rem + 0.5vw);
   display: inline-block;
@@ -262,7 +260,7 @@ div h6 {
 .task-info-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 .task-info {
@@ -280,6 +278,14 @@ div h6 {
   flex-direction: row;
   align-items: center;
   padding: 5px;
+}
+
+.bi-calendar-week {
+  margin: 0 0 0 5px;
+}
+
+.bi-clock{
+  margin: 0 0 0 5px;
 }
 
 .btnAction {

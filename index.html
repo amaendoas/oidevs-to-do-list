@@ -31,22 +31,36 @@
       <h1>To Do List</h1>
       <h2>Suas Tarefas</h2>
 
-      <div class="img-column row align-items-center">
-        <div class="col mx-auto text-center" id="div-img-initial">
+      <div class="img-column row align-items-center" id="div-content">
+        <!-- <div class="col mx-auto text-center" id="div-img-initial">
           <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list" />
-          <h5>Sua Lista de tarefas está vazia</h5>
-        </div>
+          <h5>Sua Lista de tarefas está vazia</h5> -->
+        
+
+        <!-- <section id="taskDate">
+      <ul>
+        <li class="taskList-date">Tarefa 01</li> 
+        <li class="taskList-date">Tarefa 02</li> 
+        <li class="taskList-date">Tarefa 03</li> 
+      </ul>
+    </section> -->
+        <section id="task">
+          <ul class="taskList-itens" id="task-list">
+          </ul>
+        </section>
       </div>
       <div class="d-flex justify-content-end">
-        <button type="button" class="btn-add-task" id="btn-add-task" data-bs-toggle="modal" data-bs-target="#newTaskModal">
+        <button type="button" class="btn-add-task" data-bs-toggle="modal" data-bs-target="#new-task-modal">
           <img src=" ./img/add-button.svg" id="add-task" alt="add-task" />
         </button>
       </div>
     </div>
 
-    <section id="taskDate">
-      <h3>Sexta-feira, 4 de novembro</h3>
-      <ul class="task">
+
+
+
+    <!-- <section id="task">
+      <ul class="taskList-itens">
         <li class="taskList-card">
           <div class="task-info-container">
             <div class="task-info">
@@ -54,10 +68,40 @@
                 <input type="checkbox" />
                 <span class="checkmark"></span>
               </label>
-              <h5>Ir ao supermercado</h5>
+              <h5>Academia</h5>
             </div>
             <div class="task-details">
-              <span class="category">Compras</span>
+              <span class="category">Saúde</span>
+              <aside>
+                <i class="bi bi-calendar-week"></i>
+                <time class="date">09/11/2022</time>
+                <i class="bi bi-clock"></i>
+                <time class="time">14:00</time>
+              </aside>
+            </div>
+          </div>
+
+          <div class="task-btnAction">
+            <button class="btnAction">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </li>
+
+        <li class="taskList-card">
+          <div class="task-info-container">
+            <div class="task-info">
+              <label class="checkbox-container">
+                <input type="checkbox" />
+                <span class="checkmark"></span>
+              </label>
+              <h5>Ir à aula</h5>
+            </div>
+            <div class="task-details">
+              <span class="category">Educação</span>
               <aside>
                 <i class="bi bi-clock"></i>
                 <time class="time">7:00</time>
@@ -74,39 +118,11 @@
             </button>
           </div>
         </li>
-
-        <li class="taskList-card">
-          <div class="task-info-container">
-            <div class="task-info">
-              <label class="checkbox-container">
-                <input type="checkbox" />
-                <span class="checkmark"></span>
-              </label>
-              <h5>Academia</h5>
-            </div>
-            <div class="task-details">
-              <span class="category">Saúde</span>
-              <aside>
-                <i class="bi bi-clock"></i>
-                <time class="time">14:00</time>
-              </aside>
-            </div>
-          </div>
-
-          <div class="task-btnAction">
-            <button class="btnAction">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
-        </li>
       </ul>
-    </section>
+    </section> -->
   </main>
   <!-- Modal -->
-  <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal fade" id="new-task-modal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -146,7 +162,10 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
-    $('newTaskModal').modal('show')
+    $('new-task-modal').modal('show')
+    $("new-task-modal").on("hidden.bs.modal", function () {
+    location.reload();
+   }) 
   </script>
   <!-- Modal - Excluir -->
   <div class="modal " tabindex="-1" id="deleteTaskModal">
