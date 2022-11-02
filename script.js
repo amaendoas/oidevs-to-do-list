@@ -159,6 +159,7 @@ function editTask(){}
 
 loadTasks();
 
+
 function done(checkbox, index) {
   if (checkbox.checked) {
     arrTasks[index].status  = "checked";
