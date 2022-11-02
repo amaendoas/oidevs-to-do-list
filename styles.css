@@ -63,7 +63,6 @@ button.btn {
   color: var(--secondary);
   font-size: calc(0.5rem + 0.5vw);
   display: inline-block;
-  background: var(--bg-secondary);
   border-radius: 5px;
   padding: 2px 8px;
   font-weight: 600;
@@ -280,6 +279,8 @@ div h6 {
 
 .btnAction {
   color: var(--actions);
+  background-color: var(--bg);
+  padding: 5px;
 }
 
 .task-btnAction {
