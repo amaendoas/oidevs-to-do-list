@@ -94,7 +94,6 @@ btnCloseModal.addEventListener("click", function () {
   //recuperação de styles default dos inputs obrigatórios
   title.classList.remove("input-error");
   date.classList.remove("input-error");
-  location.reload();
 });
 
 // ADICIONADO POR NATASHA
@@ -103,7 +102,6 @@ function hideInitialImg() {
   let div = document.getElementById("div-content");
     div.innerHTML = "";
 }
-
 
 function showInitialImg(arrTasks) {
   if (arrTasks.length === 0) {
@@ -159,9 +157,13 @@ function insertItemTela(id, title, category, date, time, status, index) {
   taskList.appendChild(li);
 }
 
-function deleteTask(){}
+function deleteTask() {}
 
-function editTask(){}
+function editTask() {}
+
+newTaskModal.addEventListener("hidden.bs.modal", (event) => {
+  location.reload();
+});
 
 loadTasks();
 
