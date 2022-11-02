@@ -14,6 +14,10 @@ const alertCloseBtn = document.getElementById("alert-close-btn")
 const btnAddTask = document.getElementById("btn-add-task")
 const initialImg = document.getElementById("div-img-initial"); 
 const taskList = document.getElementById("task-list");
+//adicionado por amanda
+const alertDiv = document.getElementById("alert-div");
+const alertMsg = document.getElementById("alert-msg");
+const alertCloseBtn = document.getElementById("alert-close-btn")
 
 alertContent(btnSave, "Tarefa adicionada com sucesso!")
 //Coleção de dados
@@ -96,6 +100,7 @@ btnCloseModal.addEventListener("click", function () {
   location.reload();
 });
 
+// ADICIONADO POR NATASHA
 
 function hideInitialImg() {
   let div = document.getElementById("div-content");
@@ -114,7 +119,6 @@ function showInitialImg(arrTasks) {
     `;
   }
 }
-
 function loadTasks() {
   taskList.innerHTML = "";
   arrTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
