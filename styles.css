@@ -155,10 +155,6 @@ h2 {
   font-size: calc(1rem + .9vw) !important;
 }
 
-h4 {
-  margin-top: 8px !important;
-}
-
 h3 {
   font-weight: 500;
   color: var(--primary);
@@ -166,6 +162,7 @@ h3 {
 }
 
 h4 {
+  margin-top: 8px !important;
   font-weight: 600 !important;
   font-size: calc(1rem + .1vw) !important;
 }
