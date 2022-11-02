@@ -11,9 +11,11 @@ const newTaskModal = document.getElementById("newTaskModal");
 const alertDiv = document.getElementById("alert-div");
 const alertMsg = document.getElementById("alert-msg");
 const alertCloseBtn = document.getElementById("alert-close-btn")
+const btnAddTask = document.getElementById("btn-add-task")
 
 const body = document.querySelector("body");
 
+alertContent(btnSave, "Tarefa adicionada com sucesso!")
 //Coleção de dados
 
 const arrTasks =
@@ -48,7 +50,7 @@ btnSave.addEventListener("click", function () {
     updateDB();
     //limpar os campos digitados
     clearInputs();
-    alert("Tarefa adicionada com sucesso");
+    // alert("Tarefa adicionada com sucesso");
   } else {
     //Retirar os boxShadows e adicionando o focus a partir do click
     title.addEventListener("click", function () {
@@ -95,6 +97,7 @@ function alertContent(btn, msg) {
 function showAlert(btn) {
   btn.addEventListener("click", () => {
     alertDiv.classList.add("show")
+    alertDiv.classList.add("showAlert")
     alertDiv.classList.remove("hide")
     setTimeout(hideAlert, 5000)
   })
