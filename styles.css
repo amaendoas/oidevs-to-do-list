@@ -142,17 +142,25 @@ input[type="checkbox"] {
 
 main h1 {
   font-weight: 700;
+  font-size: calc(1rem + 1.5vw) !important;
 }
 
-h2,
-h4 {
+h2 {
   font-weight: 600;
+  font-size: calc(1rem + .9vw) !important;
 }
 
 h3 {
   font-weight: 500;
   color: var(--primary);
+  font-size: calc(1rem + .6vw) !important;
 }
+
+h4 {
+  font-weight: 600 !important;
+  font-size: calc(1rem + .1vw) !important;
+}
+
 .title-task {
   display: flex;
   width: 100%;
