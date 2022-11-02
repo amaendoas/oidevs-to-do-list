@@ -18,8 +18,10 @@ const alertCloseBtn = document.getElementById("alert-close-btn")
 alertContent(btnSave, "Tarefa adicionada com sucesso!")
 //Coleção de dados
 
-const arrTasks =
-  localStorage.getItem("todoList") == null
+// const arrTasks = [];
+
+let arrTasks =
+  JSON.parse(localStorage.getItem("todoList")) == null
     ? []
     : JSON.parse(localStorage.getItem("todoList"));
 
@@ -52,15 +54,16 @@ btnSave.addEventListener("click", function () {
     });
   }
   hideInitialImg();
+  loadTasks();
 });
 
 function addTaskDB() {
   const task = {
     id: arrTasks.length + 1,
     title: title.value,
-    category: category.value,
+    category: category.value ? category.value : "Geral",
     date: date.value,
-    time: time.value,
+    time: time.value ? time.value : "Dia todo", 
   };
   //Salvar os dados na array de objetos e localStorage
   arrTasks.push(task);
@@ -72,7 +75,7 @@ function addTaskDB() {
 function updateDB(arrTasks) {
   localStorage.setItem("todoList", JSON.stringify(arrTasks));
   if (arrTasks.length === 0) showInitialImg(arrTasks);
-  console.log(arrTasks.length);
+  loadTasks();
 }
 
 //Limpar inputs (formato default)
@@ -124,10 +127,6 @@ function hideAlert() {
 function hideInitialImg() {
   let div = document.getElementById('div-content');
     div.innerHTML = "";
-  // console.log(initialImg);
-  // initialImg.in = "";
-  // initialImg.parentNode.removeChild(initialImg);
-  // location.reload();
 }
 
 
@@ -142,46 +141,51 @@ function showInitialImg(arrTasks) {
     `;
   }
 }
+function loadTasks() {
+  taskList.innerHTML = "";
+  arrTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
+  arrTasks.forEach((item) => {
+    insertItemTela(item.id, item.title, item.category, item.date, item.time);
+  });
+}
 
-// function loadTasks() {
-//   taskList.innerHTML = "";
-//   arrTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
-//   arrTasks.forEach(item => {
-//     insertItemTela(item.id, item.title, item.category, item.date, item.time)
-//   });
-// }
+function insertItemTela(id, title, category, date, time) {
+  let li = document.createElement("li");
+  li.classList.add("taskList-card");
+  li.innerHTML = `
+    <div class="task-info-container">
+      <div class="task-info">
+        <label class="checkbox-container">
+          <input type="checkbox"/>
+          <span class="checkmark"></span>
+        </label>
+      <h5>${title}</h5>
+      </div>
+      <div class="task-details">
+        <span class="category">${category}</span>
+        <aside>
+          <i class="bi bi-calendar-week"></i>
+          <date class="date">${date}</date>
+          <i class="bi bi-clock"></i>
+          <time class="time">${time}</time>
+        </aside>
+      </div>
+    </div>
 
-// function insertItemTela(id, title, category, date, time) {
-//   const li = document.createElement("li");
-//   li.classList.add("taskList-card");
-//   li.innerHTML = `
-//     <div class="task-info-container">
-//       <div class="task-info">
-//         <label class="checkbox-container">
-//           <input type="checkbox"/>
-//           <span class="checkmark"></span>
-//         </label>
-//       <h5 ${title}></h5>
-//       </div>
-//       <div class="task-details">
-//         <span class="category" ${category}></span>
-//         <aside>
-//           <i class="bi bi-calendar-week"></i>
-//           <date class="date">${date}</date>
-//           <i class="bi bi-clock"></i>
-//           <time class="time">${time}</time>
-//         </aside>
-//       </div>
-//     </div>
+    <div class="task-btnAction">
+      <button class="btnAction" id="btn-edit" data-bs-toggle="modal" data-bs-target="#editTaskModal" onclick="editTask(${id})">
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" onclick="deleteTask(${id})">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+    `
+  taskList.appendChild(li);
+}
 
-//     <div class="task-btnAction">
-//       <button class="btnAction">
-//         <i class="bi bi-pencil"></i>
-//       </button>
-//       <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" onclick="deleteTask(${id})">
-//         <i class="bi bi-trash"></i>
-//       </button>
-//     </div>
-//     `
-//   taskList.appendChild(li);
-// }
+function deleteTask(){}
+
+function editTask(){}
+
+loadTasks();
