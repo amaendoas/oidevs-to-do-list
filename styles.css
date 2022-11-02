@@ -54,23 +54,14 @@ button.btn {
   font-size: calc(0.6rem + 0.5vw);
 }
 
-.task {
-  width: 100%;
-  padding: 1.5rem 1rem;
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#task span {
+.category {
   color: var(--secondary);
-  font-size: calc(0.5rem + 0.5vw);
+  font-size: calc(0.6rem + 0.5vw);
   display: inline-block;
   border-radius: 5px;
   padding: 2px 8px;
   font-weight: 600;
+  background-color: var(--bg-secondary);
 }
 
 .btn.btn-default {
@@ -210,8 +201,8 @@ button.btn-add-task {
   background: none;
 }
 
-.container-task {
-  overflow-y: scroll;
+#div-content {
+  overflow-y: auto;
 }
 
 .btn-cancel {
@@ -324,15 +315,16 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 /*Amanda - alert*/
 
+
 #alert-div {
   background-color: var(--highlight);
-  box-shadow: var(--shadow);
   border-left: 5px solid var(--primary);
   width: fit-content;
   position: absolute;
   right: 5px;
   top: 10px;
   display: none !important;
+  z-index: 1056;
 }
 
 #alert-div.showAlert {
