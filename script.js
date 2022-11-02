@@ -8,6 +8,9 @@ const btnSave = document.getElementById("btn-save");
 const btnCloseModal = document.getElementById("btn-close-modal");
 const divImgInitial = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("newTaskModal");
+const alertDiv = document.getElementById("alert-div");
+const alertMsg = document.getElementById("alert-msg");
+const alertCloseBtn = document.getElementById("alert-close-btn")
 
 const body = document.querySelector("body");
 
@@ -79,3 +82,29 @@ btnCloseModal.addEventListener("click", function () {
 });
 
 console.log(arrTasks);
+
+/*alerta - AMANDA */
+
+alertCloseBtn.addEventListener("click", hideAlert)
+
+function alertContent(btn, msg) {
+  showAlert(btn)
+  setAlertMsg(msg)
+}
+
+function showAlert(btn) {
+  btn.addEventListener("click", () => {
+    alertDiv.classList.add("show")
+    alertDiv.classList.remove("hide")
+    setTimeout(hideAlert, 5000)
+  })
+}
+
+function setAlertMsg(msg) {
+  alertMsg.innerHTML = msg
+}
+
+function hideAlert() {
+  alertDiv.classList.add("hide")
+  alertDiv.classList.remove("show")
+}

@@ -29,6 +29,10 @@ body {
   height: 100vh;
 }
 
+button {
+  background-color: transparent;
+}
+
 body,
 input,
 button,
@@ -309,3 +313,53 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   border: none;
   color: (--text) !important;
 }
+
+/*Amanda - alert*/
+
+.alert {
+  background-color: var(--highlight);
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--primary);
+  width: fit-content;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}
+
+.alert i {
+  color: var(--primary);
+}
+
+.alert.show {
+  animation: show-slide 1s ease forwards;
+}
+
+.alert.hide {
+  animation: hide-slide 1s ease forwards;
+}
+
+.alert button {
+  cursor: pointer;
+}
+
+@keyframes show-slide {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes hide-slide {
+  0% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-200%);
+  }
+}
+
+
