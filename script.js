@@ -182,10 +182,6 @@ function insertItemTela(id, title, category, date, time, status, index) {
 
 let taskId
 let taskIndex
-let newTitle
-let newCategory
-let newDate
-let newTime
 
 function editTask(taskid) {
   let [taskToEdit] = listOfTasks.filter(task => task.id === taskid)
@@ -211,8 +207,10 @@ function saveEdit(taskid) {
     status: ''
   }
   listOfTasks.splice(taskIndex, 1, editedTask)
+  sortListByDate(listOfTasks);
   updateDB(listOfTasks)
   showAlert("Tarefa atualizada com sucesso!")
+  
 }
 
 // btnTrash.addEventListener("click", function () {
