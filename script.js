@@ -1,5 +1,4 @@
 // Selecionar elementos
-
 const title = document.getElementById("input-title");
 const category = document.getElementById("input-category");
 const date = document.getElementById("input-date");
@@ -8,26 +7,27 @@ const btnSave = document.getElementById("btn-save");
 const btnCloseModal = document.getElementById("btn-close-modal");
 const divInitialImg = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("new-task-modal");
-const btnAddTask = document.getElementById("btn-add-task")
-const initialImg = document.getElementById("div-img-initial"); 
+const btnAddTask = document.getElementById("btn-add-task");
+const initialImg = document.getElementById("div-img-initial");
 const taskList = document.getElementById("task-list");
+// const btnDeleteModal = document.getElementById("btn-del-task");
+// const btnTrash = document.getElementById("btn-delete");
 //adicionado por amanda
 const alertDiv = document.getElementById("alert-div");
 const alertMsg = document.getElementById("alert-msg");
-const alertCloseBtn = document.getElementById("alert-close-btn")
-
+const alertCloseBtn = document.getElementById("alert-close-btn");
 
 //Coleção de dados
 
-// const arrTasks = [];
+// const listOfTasks = [];
 
-let arrTasks =
+let listOfTasks =
   JSON.parse(localStorage.getItem("todoList")) == null
     ? []
     : JSON.parse(localStorage.getItem("todoList"));
 
-// const arrTasks = [];
-if (arrTasks.length === 0) showInitialImg(arrTasks);
+// const listOfTasks = [];
+if (listOfTasks.length === 0) showInitialImg(listOfTasks);
 
 // funções - Recuperação dados
 
@@ -40,7 +40,7 @@ btnSave.addEventListener("click", function () {
 
     //limpar os campos digitados
     cleanInputs();
-    showAlert("Tarefa adicionada com sucesso!")
+    showAlert("Tarefa adicionada com sucesso!");
   } else {
     if (!hasTitle) title.classList.add("input-error");
 
@@ -60,7 +60,7 @@ btnSave.addEventListener("click", function () {
 
 function addTaskDB() {
   const task = {
-    id: arrTasks.length + 1,
+    id: listOfTasks.length + 1,
     title: title.value,
     category: category.value ? category.value : "Geral",
     date: date.value,
@@ -68,15 +68,15 @@ function addTaskDB() {
     status: "",
   };
   //Salvar os dados na array de objetos e localStorage
-  arrTasks.push(task);
+  listOfTasks.push(task);
   // Fazer o sort ou filter
-  updateDB(arrTasks);
+  updateDB(listOfTasks);
 }
 
 //Salvar no LocalStorage
-function updateDB(arrTasks) {
-  localStorage.setItem("todoList", JSON.stringify(arrTasks));
-  if (arrTasks.length === 0) showInitialImg(arrTasks);
+function updateDB(listOfTasks) {
+  localStorage.setItem("todoList", JSON.stringify(listOfTasks));
+  if (listOfTasks.length === 0) showInitialImg(listOfTasks);
   loadTasks();
 }
 
@@ -100,11 +100,11 @@ btnCloseModal.addEventListener("click", function () {
 
 function hideInitialImg() {
   let div = document.getElementById("div-content");
-    div.innerHTML = "";
+  div.innerHTML = "";
 }
 
-function showInitialImg(arrTasks) {
-  if (arrTasks.length === 0) {
+function showInitialImg(listOfTasks) {
+  if (listOfTasks.length === 0) {
     let div = document.getElementById("div-content");
     div.innerHTML = `
       <div class="col mx-auto text-center" id="div-img-initial">
@@ -116,9 +116,17 @@ function showInitialImg(arrTasks) {
 }
 function loadTasks() {
   taskList.innerHTML = "";
-  arrTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
-  arrTasks.forEach((item, index) => {
-    insertItemTela(item.id, item.title, item.category, item.date, item.time, item.status, index);
+  listOfTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
+  listOfTasks.forEach((item, index) => {
+    insertItemTela(
+      item.id,
+      item.title,
+      item.category,
+      item.date,
+      item.time,
+      item.status,
+      index
+    );
   });
 }
 
@@ -149,7 +157,7 @@ function insertItemTela(id, title, category, date, time, status, index) {
       <button class="btnAction" id="btn-edit" data-bs-toggle="modal" data-bs-target="#editTaskModal" onclick="editTask(${id})">
         <i class="bi bi-pencil"></i>
       </button>
-      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" onclick="deleteTask(${id})">
+      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" onclick="removeItemTasks(${id})">
         <i class="bi bi-trash"></i>
       </button>
     </div>
@@ -157,42 +165,68 @@ function insertItemTela(id, title, category, date, time, status, index) {
   taskList.appendChild(li);
 }
 
-function deleteTask() {}
-
 function editTask() {}
+
+// btnTrash.addEventListener("click", function () {
+//   let modalConfirmDelete = getElementById("modal-delete-task");
+//   modalConfirmDelete.innerHTML = `<div class="modal " tabindex="-1" id="modal-delete-task">
+//     <div class="modal-dialog modal-dialog-centered">
+//       <div class="modal-content">
+//         <div class="modal-header">
+//           <div class="img-alert-center">
+//             <img src="./img/img-alert.svg" alt="alert-image" class="alert-image">
+//           </div>
+//           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//         </div>
+//         <div class="modal-body">
+//           <h6>Tem certeza deseja excluir essa tarefa?</h6>
+//         </div>
+//         <div class="modal-footer">
+//           <button type="button" class="btn btn-default" id="btn-del-task">
+//             Excluir
+//           </button>
+//           <button type="button" class="btn btn-cancel">Cancelar</button>
+//         </div>
+//       </div>
+//     </div>
+//   </div>`;
+// });
+
+function removeItemTasks(taskid) { 
+  let taskToDeleteList = listOfTasks.filter((task) => task.id === taskid);
+  let taskToDeleteObject = taskToDeleteList[0];
+  let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteObject);
+  listOfTasks.splice(indexTaskToDelete, 1);
+  updateDB(listOfTasks);
+}
 
 newTaskModal.addEventListener("hidden.bs.modal", (event) => {
   location.reload();
 });
-
 loadTasks();
 
 function done(checkbox, index) {
   if (checkbox.checked) {
-    arrTasks[index].status  = "checked";
+    listOfTasks[index].status = "checked";
   } else {
-    arrTasks[index].status = "";
+    listOfTasks[index].status = "";
   }
-  updateDB(arrTasks)
+  updateDB(listOfTasks);
 }
 
 /*alerta - AMANDA */
 
-alertCloseBtn.addEventListener("click", hideAlert)
+alertCloseBtn.addEventListener("click", hideAlert);
 
 function showAlert(msg) {
-    alertDiv.classList.add("show")
-    alertDiv.classList.add("showAlert")
-    alertDiv.classList.remove("hide")
-    setTimeout(hideAlert, 5000)
-    alertMsg.innerHTML = msg
+  alertDiv.classList.add("show");
+  alertDiv.classList.add("showAlert");
+  alertDiv.classList.remove("hide");
+  setTimeout(hideAlert, 5000);
+  alertMsg.innerHTML = msg;
 }
 
 function hideAlert() {
-  alertDiv.classList.add("hide")
-  alertDiv.classList.remove("show")
+  alertDiv.classList.add("hide");
+  alertDiv.classList.remove("show");
 }
-
-
-
-
