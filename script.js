@@ -16,7 +16,7 @@ const alertDiv = document.getElementById("alert-div");
 const alertMsg = document.getElementById("alert-msg");
 const alertCloseBtn = document.getElementById("alert-close-btn")
 
-alertContent(btnSave, "Tarefa adicionada com sucesso!")
+
 //Coleção de dados
 
 // const arrTasks = [];
@@ -40,7 +40,7 @@ btnSave.addEventListener("click", function () {
 
     //limpar os campos digitados
     cleanInputs();
-    alert("Tarefa adicionada com sucesso");
+    showAlert("Tarefa adicionada com sucesso!")
   } else {
     if (!hasTitle) title.classList.add("input-error");
 
@@ -94,7 +94,6 @@ btnCloseModal.addEventListener("click", function () {
   //recuperação de styles default dos inputs obrigatórios
   title.classList.remove("input-error");
   date.classList.remove("input-error");
-  location.reload();
 });
 
 // ADICIONADO POR NATASHA
@@ -103,7 +102,6 @@ function hideInitialImg() {
   let div = document.getElementById("div-content");
     div.innerHTML = "";
 }
-
 
 function showInitialImg(arrTasks) {
   if (arrTasks.length === 0) {
@@ -159,9 +157,13 @@ function insertItemTela(id, title, category, date, time, status, index) {
   taskList.appendChild(li);
 }
 
-function deleteTask(){}
+function deleteTask() {}
 
-function editTask(){}
+function editTask() {}
+
+newTaskModal.addEventListener("hidden.bs.modal", (event) => {
+  location.reload();
+});
 
 loadTasks();
 
@@ -178,22 +180,12 @@ function done(checkbox, index) {
 
 alertCloseBtn.addEventListener("click", hideAlert)
 
-function alertContent(btn, msg) {
-  showAlert(btn)
-  setAlertMsg(msg)
-}
-
-function showAlert(btn) {
-  btn.addEventListener("click", () => {
+function showAlert(msg) {
     alertDiv.classList.add("show")
     alertDiv.classList.add("showAlert")
     alertDiv.classList.remove("hide")
     setTimeout(hideAlert, 5000)
-  })
-}
-
-function setAlertMsg(msg) {
-  alertMsg.innerHTML = msg
+    alertMsg.innerHTML = msg
 }
 
 function hideAlert() {
