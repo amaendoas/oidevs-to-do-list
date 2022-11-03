@@ -1,122 +1,128 @@
 // Selecionar elementos
-const title = document.getElementById("input-title");
-const category = document.getElementById("input-category");
-const date = document.getElementById("input-date");
-const time = document.getElementById("input-time");
-const btnSave = document.getElementById("btn-save");
-const btnCloseModal = document.getElementById("btn-close-modal");
-const divInitialImg = document.getElementById("div-img-initial");
-const newTaskModal = document.getElementById("new-task-modal");
-const btnAddTask = document.getElementById("btn-add-task");
-const initialImg = document.getElementById("div-img-initial");
-const taskList = document.getElementById("task-list");
+const title = document.getElementById('input-title')
+const category = document.getElementById('input-category')
+const date = document.getElementById('input-date')
+const time = document.getElementById('input-time')
+const btnSave = document.getElementById('btn-save')
+const btnCloseModal = document.getElementById('btn-close-modal')
+const divInitialImg = document.getElementById('div-img-initial')
+const newTaskModal = document.getElementById('new-task-modal')
+const btnAddTask = document.getElementById('btn-add-task')
+const initialImg = document.getElementById('div-img-initial')
+const taskList = document.getElementById('task-list')
 // const btnDeleteModal = document.getElementById("btn-del-task");
 // const btnTrash = document.getElementById("btn-delete");
 //adicionado por amanda
-const alertDiv = document.getElementById("alert-div");
-const alertMsg = document.getElementById("alert-msg");
-const alertCloseBtn = document.getElementById("alert-close-btn");
-
+const alertDiv = document.getElementById('alert-div')
+const alertMsg = document.getElementById('alert-msg')
+const alertCloseBtn = document.getElementById('alert-close-btn')
+//edit task
+const modalEdit = document.getElementById('editTaskModal')
+const titleEdit = document.getElementById('input-edit-title')
+const categoryEdit = document.getElementById('input-edit-category')
+const dateEdit = document.getElementById('input-edit-date')
+const timeEdit = document.getElementById('input-edit-time')
+const btnSaveEdit = document.getElementById('btn-edit-save')
 //Coleção de dados
 
 // const listOfTasks = [];
 
 let listOfTasks =
-  JSON.parse(localStorage.getItem("todoList")) == null
+  JSON.parse(localStorage.getItem('todoList')) == null
     ? []
-    : JSON.parse(localStorage.getItem("todoList"));
+    : JSON.parse(localStorage.getItem('todoList'))
 
 // const listOfTasks = [];
-if (listOfTasks.length === 0) showInitialImg(listOfTasks);
+if (listOfTasks.length === 0) showInitialImg(listOfTasks)
 
 // funções - Recuperação dados
 
-btnSave.addEventListener("click", function () {
-  const hasTitle = title.value != "";
-  const hasDate = date.value != "";
+btnSave.addEventListener('click', function () {
+  const hasTitle = title.value != ''
+  const hasDate = date.value != ''
 
   if (hasTitle && hasDate) {
-    addTaskDB();
+    addTaskDB()
 
     //limpar os campos digitados
-    cleanInputs();
-    showAlert("Tarefa adicionada com sucesso!");
+    cleanInputs()
+    showAlert('Tarefa adicionada com sucesso!')
   } else {
-    if (!hasTitle) title.classList.add("input-error");
+    if (!hasTitle) title.classList.add('input-error')
 
-    if (!hasDate) date.classList.add("input-error");
+    if (!hasDate) date.classList.add('input-error')
 
     //Retirar os boxShadows e adicionando o focus a partir do click
-    title.addEventListener("click", function () {
-      title.classList.remove("input-error");
-    });
-    date.addEventListener("click", function () {
-      date.classList.remove("input-error");
-    });
+    title.addEventListener('click', function () {
+      title.classList.remove('input-error')
+    })
+    date.addEventListener('click', function () {
+      date.classList.remove('input-error')
+    })
   }
-  hideInitialImg();
-  loadTasks();
-});
+  hideInitialImg()
+  loadTasks()
+})
 
 function addTaskDB() {
   const task = {
     id: listOfTasks.length + 1,
     title: title.value,
-    category: category.value ? category.value : "Geral",
+    category: category.value ? category.value : 'Geral',
     date: date.value,
-    time: time.value ? time.value : "Dia todo",
-    status: "",
-  };
+    time: time.value ? time.value : 'Dia todo',
+    status: ''
+  }
   //Salvar os dados na array de objetos e localStorage
-  listOfTasks.push(task);
+  listOfTasks.push(task)
   // Fazer o sort ou filter
-  updateDB(listOfTasks);
+  updateDB(listOfTasks)
 }
 
 //Salvar no LocalStorage
 function updateDB(listOfTasks) {
-  localStorage.setItem("todoList", JSON.stringify(listOfTasks));
-  if (listOfTasks.length === 0) showInitialImg(listOfTasks);
-  loadTasks();
+  localStorage.setItem('todoList', JSON.stringify(listOfTasks))
+  if (listOfTasks.length === 0) showInitialImg(listOfTasks)
+  loadTasks()
 }
 
 //Limpar inputs (formato default)
 function cleanInputs() {
-  title.value = "";
-  category.value = "";
-  date.value = "";
-  time.value = "";
+  title.value = ''
+  category.value = ''
+  date.value = ''
+  time.value = ''
 }
 // Ação do botão de fechar do modal tasks
-btnCloseModal.addEventListener("click", function () {
+btnCloseModal.addEventListener('click', function () {
   //limpeza dos values dos inputs
-  cleanInputs();
+  cleanInputs()
   //recuperação de styles default dos inputs obrigatórios
-  title.classList.remove("input-error");
-  date.classList.remove("input-error");
-});
+  title.classList.remove('input-error')
+  date.classList.remove('input-error')
+})
 
 // ADICIONADO POR NATASHA
 
 function hideInitialImg() {
-  let div = document.getElementById("div-content");
-  div.innerHTML = "";
+  let div = document.getElementById('div-content')
+  div.innerHTML = ''
 }
 
 function showInitialImg(listOfTasks) {
   if (listOfTasks.length === 0) {
-    let div = document.getElementById("div-content");
+    let div = document.getElementById('div-content')
     div.innerHTML = `
       <div class="col mx-auto text-center" id="div-img-initial">
         <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list" />
         <h5>Sua Lista de tarefas está vazia</h5>
       </div>
-    `;
+    `
   }
 }
 function loadTasks() {
-  taskList.innerHTML = "";
-  listOfTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
+  taskList.innerHTML = ''
+  listOfTasks = JSON.parse(localStorage.getItem('todoList')) ?? []
   listOfTasks.forEach((item, index) => {
     insertItemTela(
       item.id,
@@ -126,13 +132,13 @@ function loadTasks() {
       item.time,
       item.status,
       index
-    );
-  });
+    )
+  })
 }
 
 function insertItemTela(id, title, category, date, time, status, index) {
-  let li = document.createElement("li");
-  li.classList.add("taskList-card");
+  let li = document.createElement('li')
+  li.classList.add('taskList-card')
   li.innerHTML = `
     <div class="task-info-container">
       <div class="task-info">
@@ -161,11 +167,44 @@ function insertItemTela(id, title, category, date, time, status, index) {
         <i class="bi bi-trash"></i>
       </button>
     </div>
-    `;
-  taskList.appendChild(li);
+    `
+  taskList.appendChild(li)
 }
 
-function editTask() {}
+let taskId
+let taskIndex
+let newTitle
+let newCategory
+let newDate
+let newTime
+
+function editTask(taskid) {
+  let [taskToEdit] = listOfTasks.filter(task => task.id === taskid)
+  titleEdit.value = taskToEdit.title
+  categoryEdit.value = taskToEdit.category
+  dateEdit.value = taskToEdit.date
+  timeEdit.value = taskToEdit.time
+  taskId = taskid
+  taskIndex = listOfTasks.indexOf(taskToEdit)
+}
+
+btnSaveEdit.addEventListener('click', () => {
+  saveEdit(taskId)
+})
+
+function saveEdit(taskid) {
+  const editedTask = {
+    id: taskid,
+    title: titleEdit.value,
+    category: categoryEdit.value,
+    date: dateEdit.value,
+    time: dateEdit.value,
+    status: ''
+  }
+  listOfTasks.splice(taskIndex, 1, editedTask)
+  updateDB(listOfTasks)
+  showAlert("Tarefa atualizada com sucesso!")
+}
 
 // btnTrash.addEventListener("click", function () {
 //   let modalConfirmDelete = getElementById("modal-delete-task");
@@ -192,41 +231,42 @@ function editTask() {}
 //   </div>`;
 // });
 
-function removeItemTasks(taskid) { 
-  let taskToDeleteList = listOfTasks.filter((task) => task.id === taskid);
-  let taskToDeleteObject = taskToDeleteList[0];
-  let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteObject);
-  listOfTasks.splice(indexTaskToDelete, 1);
-  updateDB(listOfTasks);
+function removeItemTasks(taskid) {
+  let taskToDeleteList = listOfTasks.filter(task => task.id === taskid)
+  let taskToDeleteObject = taskToDeleteList[0]
+  let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteObject)
+  listOfTasks.splice(indexTaskToDelete, 1)
+  updateDB(listOfTasks)
 }
 
-newTaskModal.addEventListener("hidden.bs.modal", (event) => {
-  location.reload();
-});
-loadTasks();
+newTaskModal.addEventListener('hidden.bs.modal', event => {
+  location.reload()
+})
+loadTasks()
 
 function done(checkbox, index) {
   if (checkbox.checked) {
-    listOfTasks[index].status = "checked";
+    listOfTasks[index].status = 'checked'
   } else {
-    listOfTasks[index].status = "";
+    listOfTasks[index].status = ''
   }
-  updateDB(listOfTasks);
+  updateDB(listOfTasks)
 }
 
 /*alerta - AMANDA */
 
-alertCloseBtn.addEventListener("click", hideAlert);
+alertCloseBtn.addEventListener('click', hideAlert)
 
 function showAlert(msg) {
-  alertDiv.classList.add("show");
-  alertDiv.classList.add("showAlert");
-  alertDiv.classList.remove("hide");
-  setTimeout(hideAlert, 5000);
-  alertMsg.innerHTML = msg;
+  alertDiv.classList.add('show')
+  alertDiv.classList.add('showAlert')
+  alertDiv.classList.remove('hide')
+  setTimeout(hideAlert, 5000)
+  alertMsg.innerHTML = msg
 }
 
 function hideAlert() {
-  alertDiv.classList.add("hide");
-  alertDiv.classList.remove("show");
+  alertDiv.classList.add('hide')
+  alertDiv.classList.remove('show')
+  location.reload()
 }
