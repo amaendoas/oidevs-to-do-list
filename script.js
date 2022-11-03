@@ -25,10 +25,11 @@ const timeEdit = document.getElementById('input-edit-time')
 const btnSaveEdit = document.getElementById('btn-edit-save')
 //Coleção de dados
 
-let currentId = JSON.parse(localStorage.getItem('idDB')) == null
-? 0
-: JSON.parse(localStorage.getItem('idDB'));
-parseInt(currentId);
+let currentId =
+  JSON.parse(localStorage.getItem('idDB')) == null
+    ? 0
+    : JSON.parse(localStorage.getItem('idDB'))
+parseInt(currentId)
 
 // const listOfTasks = [];
 
@@ -70,8 +71,8 @@ btnSave.addEventListener('click', function () {
 })
 
 function addTaskDB() {
-  currentId++;
-  localStorage.setItem('idDB', JSON.stringify(currentId));
+  currentId++
+  localStorage.setItem('idDB', JSON.stringify(currentId))
   const task = {
     // id: listOfTasks.length + 1,
     id: currentId,
@@ -83,7 +84,7 @@ function addTaskDB() {
   }
   //Salvar os dados na array de objetos e localStorage
   listOfTasks.push(task)
-  sortListByDate(listOfTasks);
+  sortListByDate(listOfTasks)
   // Fazer o sort ou filter
   updateDB(listOfTasks)
 }
@@ -201,16 +202,15 @@ function saveEdit(taskid) {
   const editedTask = {
     id: taskid,
     title: titleEdit.value,
-    category: categoryEdit.value,
+    category: categoryEdit.value ? categoryEdit.value : 'Geral',
     date: dateEdit.value,
-    time: dateEdit.value,
+    time: timeEdit.value ? timeEdit.value : 'Dia todo',
     status: ''
   }
   listOfTasks.splice(taskIndex, 1, editedTask)
-  sortListByDate(listOfTasks);
+  sortListByDate(listOfTasks)
   updateDB(listOfTasks)
-  showAlert("Tarefa atualizada com sucesso!")
-  
+  showAlert('Tarefa atualizada com sucesso!')
 }
 
 // btnTrash.addEventListener("click", function () {
@@ -281,11 +281,11 @@ function hideAlert() {
 // NATASHA //
 
 function sortListByDate(listOfTasks) {
-  listOfTasks.sort(compareDates);
+  listOfTasks.sort(compareDates)
 
   function compareDates(task1, task2) {
-    let date1 = new Date(task1.date);
-    let date2 = new Date(task2.date);
-    return date1.getTime() - date2.getTime();
+    let date1 = new Date(task1.date)
+    let date2 = new Date(task2.date)
+    return date1.getTime() - date2.getTime()
   }
 }
