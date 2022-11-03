@@ -1,138 +1,138 @@
-// Selecionar elementos
-const title = document.getElementById('input-title')
-const category = document.getElementById('input-category')
-const date = document.getElementById('input-date')
-const time = document.getElementById('input-time')
-const btnSave = document.getElementById('btn-save')
-const btnCloseModal = document.getElementById('btn-close-modal')
-const divInitialImg = document.getElementById('div-img-initial')
-const newTaskModal = document.getElementById('new-task-modal')
-const btnAddTask = document.getElementById('btn-add-task')
-const initialImg = document.getElementById('div-img-initial')
-const taskList = document.getElementById('task-list')
-// const btnDeleteModal = document.getElementById("btn-del-task");
+// Selecionar elementosAddTask
+const title = document.getElementById("input-title");
+const category = document.getElementById("input-category");
+const date = document.getElementById("input-date");
+const time = document.getElementById("input-time");
+const btnSave = document.getElementById("btn-save");
+const btnCloseModal = document.getElementById("btn-close-modal");
+const divInitialImg = document.getElementById("div-img-initial");
+const newTaskModal = document.getElementById("new-task-modal");
+const btnAddTask = document.getElementById("btn-add-task");
+const initialImg = document.getElementById("div-img-initial");
+const taskList = document.getElementById("task-list");
+const btnDelTaskInModal = document.getElementById("btn-del-task");
 // const btnTrash = document.getElementById("btn-delete");
 //adicionado por amanda
-const alertDiv = document.getElementById('alert-div')
-const alertMsg = document.getElementById('alert-msg')
-const alertCloseBtn = document.getElementById('alert-close-btn')
+const alertDiv = document.getElementById("alert-div");
+const alertMsg = document.getElementById("alert-msg");
+const alertCloseBtn = document.getElementById("alert-close-btn");
 //edit task
-const modalEdit = document.getElementById('editTaskModal')
-const titleEdit = document.getElementById('input-edit-title')
-const categoryEdit = document.getElementById('input-edit-category')
-const dateEdit = document.getElementById('input-edit-date')
-const timeEdit = document.getElementById('input-edit-time')
-const btnSaveEdit = document.getElementById('btn-edit-save')
+const modalEdit = document.getElementById("editTaskModal");
+const titleEdit = document.getElementById("input-edit-title");
+const categoryEdit = document.getElementById("input-edit-category");
+const dateEdit = document.getElementById("input-edit-date");
+const timeEdit = document.getElementById("input-edit-time");
+const btnSaveEdit = document.getElementById("btn-edit-save");
 //Coleção de dados
 
 let currentId =
-  JSON.parse(localStorage.getItem('idDB')) == null
+  JSON.parse(localStorage.getItem("idDB")) == null
     ? 0
-    : JSON.parse(localStorage.getItem('idDB'))
-parseInt(currentId)
+    : JSON.parse(localStorage.getItem("idDB"));
+parseInt(currentId);
 
 // const listOfTasks = [];
 
 let listOfTasks =
-  JSON.parse(localStorage.getItem('todoList')) == null
+  JSON.parse(localStorage.getItem("todoList")) == null
     ? []
-    : JSON.parse(localStorage.getItem('todoList'))
+    : JSON.parse(localStorage.getItem("todoList"));
 
 // const listOfTasks = [];
-if (listOfTasks.length === 0) showInitialImg(listOfTasks)
+if (listOfTasks.length === 0) showInitialImg(listOfTasks);
 
 // funções - Recuperação dados
 
-btnSave.addEventListener('click', function () {
-  const hasTitle = title.value != ''
-  const hasDate = date.value != ''
+btnSave.addEventListener("click", function () {
+  const hasTitle = title.value != "";
+  const hasDate = date.value != "";
 
   if (hasTitle && hasDate) {
-    addTaskDB()
+    addTaskDB();
 
     //limpar os campos digitados
-    cleanInputs()
-    showAlert('Tarefa adicionada com sucesso!')
+    cleanInputs();
+    showAlert("Tarefa adicionada com sucesso!");
   } else {
-    if (!hasTitle) title.classList.add('input-error')
+    if (!hasTitle) title.classList.add("input-error");
 
-    if (!hasDate) date.classList.add('input-error')
+    if (!hasDate) date.classList.add("input-error");
 
     //Retirar os boxShadows e adicionando o focus a partir do click
-    title.addEventListener('click', function () {
-      title.classList.remove('input-error')
-    })
-    date.addEventListener('click', function () {
-      date.classList.remove('input-error')
-    })
+    title.addEventListener("click", function () {
+      title.classList.remove("input-error");
+    });
+    date.addEventListener("click", function () {
+      date.classList.remove("input-error");
+    });
   }
-  hideInitialImg()
-  loadTasks(listOfTasks)
-})
+  hideInitialImg();
+  loadTasks(listOfTasks);
+});
 
 function addTaskDB() {
-  currentId++
-  localStorage.setItem('idDB', JSON.stringify(currentId))
+  currentId++;
+  localStorage.setItem("idDB", JSON.stringify(currentId));
   const task = {
     // id: listOfTasks.length + 1,
     id: currentId,
     title: title.value,
-    category: category.value ? category.value : 'Geral',
+    category: category.value ? category.value : "Geral",
     date: date.value,
-    time: time.value ? time.value : 'Dia todo',
-    status: ''
-  }
+    time: time.value ? time.value : "Dia todo",
+    status: "",
+  };
   //Salvar os dados na array de objetos e localStorage
-  listOfTasks.push(task)
-  sortListByDate(listOfTasks)
+  listOfTasks.push(task);
+  sortListByDate(listOfTasks);
   // Fazer o sort ou filter
-  updateDB(listOfTasks)
+  updateDB(listOfTasks);
 }
 
 //Salvar no LocalStorage
 function updateDB(listOfTasks) {
-  localStorage.setItem('todoList', JSON.stringify(listOfTasks))
-  if (listOfTasks.length === 0) showInitialImg(listOfTasks)
-  loadTasks(listOfTasks)
+  localStorage.setItem("todoList", JSON.stringify(listOfTasks));
+  if (listOfTasks.length === 0) showInitialImg(listOfTasks);
+  loadTasks(listOfTasks);
 }
 
 //Limpar inputs (formato default)
 function cleanInputs() {
-  title.value = ''
-  category.value = ''
-  date.value = ''
-  time.value = ''
+  title.value = "";
+  category.value = "";
+  date.value = "";
+  time.value = "";
 }
 // Ação do botão de fechar do modal tasks
-btnCloseModal.addEventListener('click', function () {
+btnCloseModal.addEventListener("click", function () {
   //limpeza dos values dos inputs
-  cleanInputs()
+  cleanInputs();
   //recuperação de styles default dos inputs obrigatórios
-  title.classList.remove('input-error')
-  date.classList.remove('input-error')
-})
+  title.classList.remove("input-error");
+  date.classList.remove("input-error");
+});
 
 // ADICIONADO POR NATASHA
 
 function hideInitialImg() {
-  let div = document.getElementById('div-content')
-  div.innerHTML = ''
+  let div = document.getElementById("div-content");
+  div.innerHTML = "";
 }
 
 function showInitialImg(listOfTasks) {
   if (listOfTasks.length === 0) {
-    let div = document.getElementById('div-content')
+    let div = document.getElementById("div-content");
     div.innerHTML = `
       <div class="col mx-auto text-center" id="div-img-initial">
         <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list" />
         <h5>Sua Lista de tarefas está vazia</h5>
       </div>
-    `
+    `;
   }
 }
 function loadTasks(listOfTasks) {
-  taskList.innerHTML = ''
-  listOfTasks = JSON.parse(localStorage.getItem('todoList')) ?? []
+  taskList.innerHTML = "";
+  listOfTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
   listOfTasks.forEach((item, index) => {
     insertItemTela(
       item.id,
@@ -142,13 +142,13 @@ function loadTasks(listOfTasks) {
       item.time,
       item.status,
       index
-    )
-  })
+    );
+  });
 }
 
 function insertItemTela(id, title, category, date, time, status, index) {
-  let li = document.createElement('li')
-  li.classList.add('taskList-card')
+  let li = document.createElement("li");
+  li.classList.add("taskList-card");
   li.innerHTML = `
     <div class="task-info-container">
       <div class="task-info">
@@ -173,44 +173,44 @@ function insertItemTela(id, title, category, date, time, status, index) {
       <button class="btnAction" id="btn-edit" data-bs-toggle="modal" data-bs-target="#editTaskModal" onclick="editTask(${id})">
         <i class="bi bi-pencil"></i>
       </button>
-      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" onclick="removeItemTasks(${id})">
+      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" >
         <i class="bi bi-trash"></i>
       </button>
     </div>
-    `
-  taskList.appendChild(li)
+    `;
+  taskList.appendChild(li);
 }
 
-let taskId
-let taskIndex
+let taskId;
+let taskIndex;
 
 function editTask(taskid) {
-  let [taskToEdit] = listOfTasks.filter(task => task.id === taskid)
-  titleEdit.value = taskToEdit.title
-  categoryEdit.value = taskToEdit.category
-  dateEdit.value = taskToEdit.date
-  timeEdit.value = taskToEdit.time
-  taskId = taskid
-  taskIndex = listOfTasks.indexOf(taskToEdit)
+  let [taskToEdit] = listOfTasks.filter((task) => task.id === taskid);
+  titleEdit.value = taskToEdit.title;
+  categoryEdit.value = taskToEdit.category;
+  dateEdit.value = taskToEdit.date;
+  timeEdit.value = taskToEdit.time;
+  taskId = taskid;
+  taskIndex = listOfTasks.indexOf(taskToEdit);
 }
 
-btnSaveEdit.addEventListener('click', () => {
-  saveEdit(taskId)
-})
+btnSaveEdit.addEventListener("click", () => {
+  saveEdit(taskId);
+});
 
 function saveEdit(taskid) {
   const editedTask = {
     id: taskid,
     title: titleEdit.value,
-    category: categoryEdit.value ? categoryEdit.value : 'Geral',
+    category: categoryEdit.value ? categoryEdit.value : "Geral",
     date: dateEdit.value,
-    time: timeEdit.value ? timeEdit.value : 'Dia todo',
-    status: ''
-  }
-  listOfTasks.splice(taskIndex, 1, editedTask)
-  sortListByDate(listOfTasks)
-  updateDB(listOfTasks)
-  showAlert('Tarefa atualizada com sucesso!')
+    time: timeEdit.value ? timeEdit.value : "Dia todo",
+    status: "",
+  };
+  listOfTasks.splice(taskIndex, 1, editedTask);
+  sortListByDate(listOfTasks);
+  updateDB(listOfTasks);
+  showAlert("Tarefa atualizada com sucesso!");
 }
 
 // btnTrash.addEventListener("click", function () {
@@ -238,54 +238,69 @@ function saveEdit(taskid) {
 //   </div>`;
 // });
 
+// let lista = [{amor}, {corção},{cerebro}]
+// let úinicoelemento = [{amor}]
+// console.log(úinicoelemento[0]); //{amor}
+
+btnDelTaskInModal.addEventListener("click", () =>
+removeItemTasks(taskId));
+
 function removeItemTasks(taskid) {
-  let taskToDeleteList = listOfTasks.filter(task => task.id === taskid)
-  let taskToDeleteObject = taskToDeleteList[0]
-  let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteObject)
+  // let taskToDeleteList = listOfTasks.filter(task => task.id === taskid)
+  // let taskToDeleteObject = taskToDeleteList[0]
+  // let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteObject)
+  // listOfTasks.splice(indexTaskToDelete, 1)
+  // updateDB(listOfTasks)
+  let [taskToDeleteList] = listOfTasks.filter((task) => task.id === taskid);
+  console.log(taskToDeleteList);
+  let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteList);
+  console.log(indexTaskToDelete);
   listOfTasks.splice(indexTaskToDelete, 1)
+  taskId = taskid;
   updateDB(listOfTasks)
 }
 
-newTaskModal.addEventListener('hidden.bs.modal', event => {
-  location.reload()
-})
-loadTasks(listOfTasks)
+newTaskModal.addEventListener("hidden.bs.modal", (event) => {
+  location.reload();
+});
+
+loadTasks(listOfTasks);
 
 function done(checkbox, index) {
   if (checkbox.checked) {
-    listOfTasks[index].status = 'checked'
+    listOfTasks[index].status = "checked";
   } else {
-    listOfTasks[index].status = ''
+    listOfTasks[index].status = "";
   }
-  updateDB(listOfTasks)
+  updateDB(listOfTasks);
 }
 
 /*alerta - AMANDA */
 
-alertCloseBtn.addEventListener('click', hideAlert)
+alertCloseBtn.addEventListener("click", hideAlert);
 
 function showAlert(msg) {
-  alertDiv.classList.add('show')
-  alertDiv.classList.add('showAlert')
-  alertDiv.classList.remove('hide')
-  setTimeout(hideAlert, 5000)
-  alertMsg.innerHTML = msg
+  alertDiv.classList.add("show");
+  alertDiv.classList.add("showAlert");
+  alertDiv.classList.remove("hide");
+  setTimeout(hideAlert, 5000);
+  alertMsg.innerHTML = msg;
 }
 
 function hideAlert() {
-  alertDiv.classList.add('hide')
-  alertDiv.classList.remove('show')
-  location.reload()
+  alertDiv.classList.add("hide");
+  alertDiv.classList.remove("show");
+  location.reload();
 }
 
 // NATASHA //
 
 function sortListByDate(listOfTasks) {
-  listOfTasks.sort(compareDates)
+  listOfTasks.sort(compareDates);
 
   function compareDates(task1, task2) {
-    let date1 = new Date(task1.date)
-    let date2 = new Date(task2.date)
-    return date1.getTime() - date2.getTime()
+    let date1 = new Date(task1.date);
+    let date2 = new Date(task2.date);
+    return date1.getTime() - date2.getTime();
   }
 }
