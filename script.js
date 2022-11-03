@@ -25,6 +25,11 @@ const timeEdit = document.getElementById('input-edit-time')
 const btnSaveEdit = document.getElementById('btn-edit-save')
 //Coleção de dados
 
+let currentId = JSON.parse(localStorage.getItem('idDB')) == null
+? 0
+: JSON.parse(localStorage.getItem('idDB'));
+parseInt(currentId);
+
 // const listOfTasks = [];
 
 let listOfTasks =
@@ -61,12 +66,15 @@ btnSave.addEventListener('click', function () {
     })
   }
   hideInitialImg()
-  loadTasks()
+  loadTasks(listOfTasks)
 })
 
 function addTaskDB() {
+  currentId++;
+  localStorage.setItem('idDB', JSON.stringify(currentId));
   const task = {
-    id: listOfTasks.length + 1,
+    // id: listOfTasks.length + 1,
+    id: currentId,
     title: title.value,
     category: category.value ? category.value : 'Geral',
     date: date.value,
@@ -75,6 +83,7 @@ function addTaskDB() {
   }
   //Salvar os dados na array de objetos e localStorage
   listOfTasks.push(task)
+  sortListByDate(listOfTasks);
   // Fazer o sort ou filter
   updateDB(listOfTasks)
 }
@@ -83,7 +92,7 @@ function addTaskDB() {
 function updateDB(listOfTasks) {
   localStorage.setItem('todoList', JSON.stringify(listOfTasks))
   if (listOfTasks.length === 0) showInitialImg(listOfTasks)
-  loadTasks()
+  loadTasks(listOfTasks)
 }
 
 //Limpar inputs (formato default)
@@ -120,7 +129,7 @@ function showInitialImg(listOfTasks) {
     `
   }
 }
-function loadTasks() {
+function loadTasks(listOfTasks) {
   taskList.innerHTML = ''
   listOfTasks = JSON.parse(localStorage.getItem('todoList')) ?? []
   listOfTasks.forEach((item, index) => {
@@ -173,10 +182,6 @@ function insertItemTela(id, title, category, date, time, status, index) {
 
 let taskId
 let taskIndex
-let newTitle
-let newCategory
-let newDate
-let newTime
 
 function editTask(taskid) {
   let [taskToEdit] = listOfTasks.filter(task => task.id === taskid)
@@ -202,8 +207,10 @@ function saveEdit(taskid) {
     status: ''
   }
   listOfTasks.splice(taskIndex, 1, editedTask)
+  sortListByDate(listOfTasks);
   updateDB(listOfTasks)
   showAlert("Tarefa atualizada com sucesso!")
+  
 }
 
 // btnTrash.addEventListener("click", function () {
@@ -242,7 +249,7 @@ function removeItemTasks(taskid) {
 newTaskModal.addEventListener('hidden.bs.modal', event => {
   location.reload()
 })
-loadTasks()
+loadTasks(listOfTasks)
 
 function done(checkbox, index) {
   if (checkbox.checked) {
@@ -269,4 +276,16 @@ function hideAlert() {
   alertDiv.classList.add('hide')
   alertDiv.classList.remove('show')
   location.reload()
+}
+
+// NATASHA //
+
+function sortListByDate(listOfTasks) {
+  listOfTasks.sort(compareDates);
+
+  function compareDates(task1, task2) {
+    let date1 = new Date(task1.date);
+    let date2 = new Date(task2.date);
+    return date1.getTime() - date2.getTime();
+  }
 }
