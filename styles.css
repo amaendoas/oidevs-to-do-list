@@ -193,7 +193,7 @@ main h2 {
 }
 
 ul {
-  padding: none;
+  padding-left: 0 !important;
 }
 
 button.btn-add-task {

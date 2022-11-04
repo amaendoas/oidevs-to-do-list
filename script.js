@@ -239,8 +239,6 @@ function done(checkbox, index) {
   updateDB(listOfTasks);
 }
 
-/*alerta - AMANDA */
-
 alertCloseBtn.addEventListener("click", hideAlert);
 
 function showAlert(msg) {
@@ -256,7 +254,6 @@ function hideAlert() {
   alertDiv.classList.remove("show");
 }
 
-// NATASHA //
 
 function sortListByDate(listOfTasks) {
   listOfTasks.sort(compareDates);
