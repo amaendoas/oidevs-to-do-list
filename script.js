@@ -5,7 +5,6 @@ const date = document.getElementById("input-date");
 const time = document.getElementById("input-time");
 const btnSave = document.getElementById("btn-save");
 const btnCloseModal = document.getElementById("btn-close-modal");
-const divInitialImg = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("new-task-modal");
 const initialImg = document.getElementById("div-img-initial");
 const taskList = document.getElementById("task-list");
@@ -96,7 +95,6 @@ btnSave.addEventListener("click", function () {
       date.classList.remove("input-error");
     });
   }
-  hideInitialImg();
   loadTasks(listOfTasks);
 });
 
@@ -109,18 +107,12 @@ btnCloseModal.addEventListener("click", function () {
   date.classList.remove("input-error");
 });
 
-// ADICIONADO POR NATASHA
-
-function hideInitialImg() {
-  let div = document.getElementById("div-content");
-  div.innerHTML = "";
-}
 
 function showInitialImg(listOfTasks) {
   if (listOfTasks.length === 0) {
     let div = document.getElementById("div-content");
     div.innerHTML = `
-      <div class="col mx-auto text-center" id="div-img-initial">
+      <div class="col mx-auto text-center align-self-center" id="div-img-initial">
         <img src="./img/todo-list.svg" alt="img-todo-list" class="img-todo-list" />
         <h5>Sua Lista de tarefas está vazia</h5>
       </div>
@@ -262,7 +254,6 @@ function showAlert(msg) {
 function hideAlert() {
   alertDiv.classList.add("hide");
   alertDiv.classList.remove("show");
-  // location.reload();
 }
 
 // NATASHA //

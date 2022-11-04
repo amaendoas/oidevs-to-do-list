@@ -291,6 +291,7 @@ div h6 {
 
 .btnAction:hover {
   cursor: pointer;
+  color: var(--text);
 }
 
 input[type="date"]::-webkit-inner-spin-button,
