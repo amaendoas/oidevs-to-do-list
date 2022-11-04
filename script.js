@@ -28,7 +28,12 @@ const listOfTasks =
 
 if (listOfTasks.length === 0) showInitialImg()
 
-loadTasks()
+loadTasks() // carrega os cartões na tela
+
+// Tarefa é carregada ao sumir o modal
+newTaskModal.addEventListener('hidden.bs.modal', () => {
+     location.reload()
+    })
 
 //adiciona no LocalStorage
 function setLocalStorage(key, value) {
@@ -40,13 +45,6 @@ function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key))
 }
 
-//limpar os inputs
-function cleanInputs() {
-  title.value = ''
-  category.value = ''
-  date.value = ''
-  time.value = ''
-}
 
 //fazer o update do localStorage
 function updateDB() {
@@ -77,16 +75,6 @@ function addTaskDB() {
   updateDB()
 }
 
-//adicionar o focus padrão a partir do click
-function focusOnClick() {
-  title.addEventListener('click', function () {
-    title.classList.remove('input-error')
-  })
-  date.addEventListener('click', function () {
-    date.classList.remove('input-error')
-  })
-}
-
 // Ao clicar no botão salvar do modal faz as verificações e salva no local storage
 btnSave.addEventListener('click', function () {
   const hasTitle = title.value != ''
@@ -102,16 +90,27 @@ btnSave.addEventListener('click', function () {
   }
 })
 
-//recuperação de styles default dos inputs obrigatórios
-function recoverStyles() {
-  title.classList.remove('input-error')
-  date.classList.remove('input-error')
+//limpar os inputs
+function cleanInputs() {
+  title.value = ''
+  category.value = ''
+  date.value = ''
+  time.value = ''
+}
+
+// Remove o box shadow de erro
+function focusOnClick() {
+  title.addEventListener('click', function () {
+    title.classList.remove('input-error')
+  })
+  date.addEventListener('click', function () {
+    date.classList.remove('input-error')
+  })
 }
 
 // Ação do botão de fechar do modal tasks
 btnCloseModal.addEventListener('click', function () {
   cleanInputs()
-  recoverStyles()
 })
 //Ivina
 
@@ -228,6 +227,18 @@ function getTask() {
 function indexOfTask(task) {
   return listOfTasks.indexOf(task)
 }
+
+// Remove a tarefa a partir do id
+function removeTask() {
+  let [taskToDeleteList] = getTask()
+  let indexTaskToDelete = indexOfTask(taskToDeleteList)
+  listOfTasks.splice(indexTaskToDelete, 1)
+  updateDB()
+  showAlert('Tarefa excluída com sucesso!')
+}
+
+btnDelTaskInModal.addEventListener('click', () => removeTask())
+
 // Amanda
 // Passa os valores do localStorage pros inputs da modal de editar
 function editTask(parTaskId) {
@@ -240,8 +251,6 @@ function editTask(parTaskId) {
   timeEdit.value = taskToEdit.time
 }
 
-
-//Amanda
 //salva a task editada no local storage
 function saveEdit(parTaskId) {
   const editedTask = {
@@ -258,30 +267,11 @@ function saveEdit(parTaskId) {
   showAlert('Tarefa atualizada com sucesso!')
 }
 
-//Amanda
 // Ao clicar no botão salvar registra os dados da task pelo ID
 btnSaveEdit.addEventListener('click', () => {
   saveEdit(taskId)
 })
 
-// Vitória 
-// Remove a tarefa a partir do id
-function removeTask() {
-  let [taskToDeleteList] = getTask()
-  let indexTaskToDelete = indexOfTask(taskToDeleteList)
-  listOfTasks.splice(indexTaskToDelete, 1)
-  updateDB()
-  showAlert('Tarefa excluída com sucesso!')
-}
-
-// Vitória
-btnDelTaskInModal.addEventListener('click', () => removeTask())
-
-newTaskModal.addEventListener('hidden.bs.modal', () => {
-  location.reload()
-})
-
-// Amanda
 alertCloseBtn.addEventListener('click', hideAlert)
 
 function showAlert(msg) {
