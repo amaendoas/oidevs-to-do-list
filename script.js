@@ -7,50 +7,80 @@ const btnSave = document.getElementById("btn-save");
 const btnCloseModal = document.getElementById("btn-close-modal");
 const divInitialImg = document.getElementById("div-img-initial");
 const newTaskModal = document.getElementById("new-task-modal");
-const btnAddTask = document.getElementById("btn-add-task");
 const initialImg = document.getElementById("div-img-initial");
 const taskList = document.getElementById("task-list");
 const btnDelTaskInModal = document.getElementById("btn-del-task");
-// const btnTrash = document.getElementById("btn-delete");
-//adicionado por amanda
+const btnTrash = document.getElementById("btn-delete");
 const alertDiv = document.getElementById("alert-div");
 const alertMsg = document.getElementById("alert-msg");
 const alertCloseBtn = document.getElementById("alert-close-btn");
-//edit task
-const modalEdit = document.getElementById("editTaskModal");
 const titleEdit = document.getElementById("input-edit-title");
 const categoryEdit = document.getElementById("input-edit-category");
 const dateEdit = document.getElementById("input-edit-date");
 const timeEdit = document.getElementById("input-edit-time");
 const btnSaveEdit = document.getElementById("btn-edit-save");
-//Coleção de dados
 
 let currentId =
-  JSON.parse(localStorage.getItem("idDB")) == null
+  getLocalStorage("idDB") == null
     ? 0
-    : JSON.parse(localStorage.getItem("idDB"));
-parseInt(currentId);
-
-// const listOfTasks = [];
+    : getLocalStorage("idDB");
 
 let listOfTasks =
-  JSON.parse(localStorage.getItem("todoList")) == null
+  getLocalStorage("todoList") == null
     ? []
-    : JSON.parse(localStorage.getItem("todoList"));
+    : getLocalStorage("todoList");
 
-// const listOfTasks = [];
 if (listOfTasks.length === 0) showInitialImg(listOfTasks);
 
-// funções - Recuperação dados
+function setLocalStorage(key, value) {
+  return localStorage.setItem(key, JSON.stringify(value))
+}
 
+function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key))
+}
+
+//Limpar inputs (formato default)
+function cleanInputs() {
+  title.value = "";
+  category.value = "";
+  date.value = "";
+  time.value = "";
+}
+
+//Salvar no LocalStorage
+function updateDB(listOfTasks) {
+  setLocalStorage("todoList", listOfTasks)
+  if (listOfTasks.length === 0) showInitialImg(listOfTasks);
+  loadTasks(listOfTasks);
+}
+
+function addTaskDB() {
+  currentId++;
+  setLocalStorage("idDB", currentId)
+  const task = {
+    // id: listOfTasks.length + 1,
+    id: currentId,
+    title: title.value,
+    category: category.value ? category.value : "Geral",
+    date: date.value,
+    time: time.value ? time.value : "Dia todo",
+    status: "",
+  };
+  //Salvar os dados na array de objetos e localStorage
+  listOfTasks.push(task);
+  sortListByDate(listOfTasks);
+  // Fazer o sort ou filter
+  updateDB(listOfTasks);
+}
+
+// funções - Recuperação dados
 btnSave.addEventListener("click", function () {
   const hasTitle = title.value != "";
   const hasDate = date.value != "";
 
   if (hasTitle && hasDate) {
     addTaskDB();
-
-    //limpar os campos digitados
     cleanInputs();
     showAlert("Tarefa adicionada com sucesso!");
   } else {
@@ -70,39 +100,6 @@ btnSave.addEventListener("click", function () {
   loadTasks(listOfTasks);
 });
 
-function addTaskDB() {
-  currentId++;
-  localStorage.setItem("idDB", JSON.stringify(currentId));
-  const task = {
-    // id: listOfTasks.length + 1,
-    id: currentId,
-    title: title.value,
-    category: category.value ? category.value : "Geral",
-    date: date.value,
-    time: time.value ? time.value : "Dia todo",
-    status: "",
-  };
-  //Salvar os dados na array de objetos e localStorage
-  listOfTasks.push(task);
-  sortListByDate(listOfTasks);
-  // Fazer o sort ou filter
-  updateDB(listOfTasks);
-}
-
-//Salvar no LocalStorage
-function updateDB(listOfTasks) {
-  localStorage.setItem("todoList", JSON.stringify(listOfTasks));
-  if (listOfTasks.length === 0) showInitialImg(listOfTasks);
-  loadTasks(listOfTasks);
-}
-
-//Limpar inputs (formato default)
-function cleanInputs() {
-  title.value = "";
-  category.value = "";
-  date.value = "";
-  time.value = "";
-}
 // Ação do botão de fechar do modal tasks
 btnCloseModal.addEventListener("click", function () {
   //limpeza dos values dos inputs
@@ -173,7 +170,7 @@ function insertItemTela(id, title, category, date, time, status, index) {
       <button class="btnAction" id="btn-edit" data-bs-toggle="modal" data-bs-target="#editTaskModal" onclick="editTask(${id})">
         <i class="bi bi-pencil"></i>
       </button>
-      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" >
+      <button class="btnAction" id="btn-delete" data-bs-toggle="modal" data-bs-target="#deleteTaskModal" onclick="getTaskId(${id})">
         <i class="bi bi-trash"></i>
       </button>
     </div>
@@ -184,19 +181,27 @@ function insertItemTela(id, title, category, date, time, status, index) {
 let taskId;
 let taskIndex;
 
-function editTask(taskid) {
-  let [taskToEdit] = listOfTasks.filter((task) => task.id === taskid);
+function getTaskId(parTaskId) {
+  taskId = parTaskId;
+}
+
+function getTask() {
+  return listOfTasks.filter((task) => task.id === taskId);
+}
+
+function indexOfTask(task) {
+  return listOfTasks.indexOf(task);
+}
+
+function editTask(parTaskId) {
+  getTaskId(parTaskId);
+  let [taskToEdit] = getTask();
   titleEdit.value = taskToEdit.title;
   categoryEdit.value = taskToEdit.category;
   dateEdit.value = taskToEdit.date;
   timeEdit.value = taskToEdit.time;
-  taskId = taskid;
-  taskIndex = listOfTasks.indexOf(taskToEdit);
+  taskIndex = indexOfTask(taskToEdit);
 }
-
-btnSaveEdit.addEventListener("click", () => {
-  saveEdit(taskId);
-});
 
 function saveEdit(taskid) {
   const editedTask = {
@@ -213,52 +218,19 @@ function saveEdit(taskid) {
   showAlert("Tarefa atualizada com sucesso!");
 }
 
-// btnTrash.addEventListener("click", function () {
-//   let modalConfirmDelete = getElementById("modal-delete-task");
-//   modalConfirmDelete.innerHTML = `<div class="modal " tabindex="-1" id="modal-delete-task">
-//     <div class="modal-dialog modal-dialog-centered">
-//       <div class="modal-content">
-//         <div class="modal-header">
-//           <div class="img-alert-center">
-//             <img src="./img/img-alert.svg" alt="alert-image" class="alert-image">
-//           </div>
-//           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-//         </div>
-//         <div class="modal-body">
-//           <h6>Tem certeza deseja excluir essa tarefa?</h6>
-//         </div>
-//         <div class="modal-footer">
-//           <button type="button" class="btn btn-default" id="btn-del-task">
-//             Excluir
-//           </button>
-//           <button type="button" class="btn btn-cancel">Cancelar</button>
-//         </div>
-//       </div>
-//     </div>
-//   </div>`;
-// });
+btnSaveEdit.addEventListener("click", () => {
+  saveEdit(taskId);
+});
 
-// let lista = [{amor}, {corção},{cerebro}]
-// let úinicoelemento = [{amor}]
-// console.log(úinicoelemento[0]); //{amor}
-
-btnDelTaskInModal.addEventListener("click", () =>
-removeItemTasks(taskId));
-
-function removeItemTasks(taskid) {
-  // let taskToDeleteList = listOfTasks.filter(task => task.id === taskid)
-  // let taskToDeleteObject = taskToDeleteList[0]
-  // let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteObject)
-  // listOfTasks.splice(indexTaskToDelete, 1)
-  // updateDB(listOfTasks)
-  let [taskToDeleteList] = listOfTasks.filter((task) => task.id === taskid);
-  console.log(taskToDeleteList);
-  let indexTaskToDelete = listOfTasks.indexOf(taskToDeleteList);
-  console.log(indexTaskToDelete);
-  listOfTasks.splice(indexTaskToDelete, 1)
-  taskId = taskid;
-  updateDB(listOfTasks)
+function removeTask() {
+  let [taskToDeleteList] = getTask();
+  let indexTaskToDelete =  indexOfTask(taskToDeleteList);
+  listOfTasks.splice(indexTaskToDelete, 1);
+  updateDB(listOfTasks);
+  showAlert("Tarefa excluída com sucesso!")
 }
+
+btnDelTaskInModal.addEventListener("click", () => removeTask());
 
 newTaskModal.addEventListener("hidden.bs.modal", (event) => {
   location.reload();
@@ -290,7 +262,7 @@ function showAlert(msg) {
 function hideAlert() {
   alertDiv.classList.add("hide");
   alertDiv.classList.remove("show");
-  location.reload();
+  // location.reload();
 }
 
 // NATASHA //
