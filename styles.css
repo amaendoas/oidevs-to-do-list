@@ -192,8 +192,8 @@ main h2 {
   margin: 32px 0 0 0;
 }
 
-.text-center h5 {
-  margin: 20px;
+ul {
+  padding: none;
 }
 
 button.btn-add-task {
@@ -291,6 +291,7 @@ div h6 {
 
 .btnAction:hover {
   cursor: pointer;
+  color: var(--text);
 }
 
 input[type="date"]::-webkit-inner-spin-button,
