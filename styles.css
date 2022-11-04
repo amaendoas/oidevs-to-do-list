@@ -192,10 +192,6 @@ main h2 {
   margin: 32px 0 0 0;
 }
 
-ul {
-  padding-left: 0 !important;
-}
-
 button.btn-add-task {
   border: none;
   background: none;
@@ -205,6 +201,20 @@ button.btn-add-task {
   overflow-y: auto;
 }
 
+.modal-footer {
+  border-top: none !important;
+  justify-content: space-around !important;
+
+}
+
+.modal-header{
+  border-bottom: none !important;
+  align-items: unset !important;
+}
+
+.btn-close {
+  align-items: flex-start;
+}
 .btn-cancel {
   outline: 1px solid #e53170;
   color: #e53170 !important;
@@ -229,12 +239,10 @@ div h6 {
   justify-content: center;
 }
 
-.modal-footer {
-  justify-content: space-around !important;
-}
-
 /* Carol */
-
+ul {
+  padding-left: 0 !important;
+}
 .taskList-card {
   display: flex;
   flex-direction: row;
