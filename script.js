@@ -58,7 +58,6 @@ function addTaskDB() {
   currentId++;
   setLocalStorage("idDB", currentId)
   const task = {
-    // id: listOfTasks.length + 1,
     id: currentId,
     title: title.value,
     category: category.value ? category.value : "Geral",
@@ -119,6 +118,7 @@ function showInitialImg(listOfTasks) {
     `;
   }
 }
+
 function loadTasks(listOfTasks) {
   taskList.innerHTML = "";
   listOfTasks = JSON.parse(localStorage.getItem("todoList")) ?? [];
@@ -254,13 +254,24 @@ function hideAlert() {
   alertDiv.classList.remove("show");
 }
 
-
+// Função que ordena a array por data
 function sortListByDate(listOfTasks) {
-  listOfTasks.sort(compareDates);
-
-  function compareDates(task1, task2) {
-    let date1 = new Date(task1.date);
-    let date2 = new Date(task2.date);
-    return date1.getTime() - date2.getTime();
-  }
+  listOfTasks.sort((task1, task2) => {
+    let date1;
+    let date2;
+  
+    if (task1.time !== "Dia todo") {
+      date1 = new Date((`${task1.date} ${task1.time}`))
+    } else {
+      date1 = new Date((`${task1.date} 00:00`))
+    }
+    
+    if (task2.time !== "Dia todo") {
+      date2 = new Date((`${task2.date} ${task2.time}`))
+    } else {
+      date2 = new Date(`${task2.date} 00:00`)
+    }
+      
+    return date1.getTime() - date2.getTime()
+  });
 }
