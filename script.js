@@ -87,7 +87,7 @@ function focusOnClick() {
   })
 }
 
-// quando clicar no botão save do modal fazer as verificações e salvar no local storage
+// Ao clicar no botão salvar do modal faz as verificações e salva no local storage
 btnSave.addEventListener('click', function () {
   const hasTitle = title.value != ''
   const hasDate = date.value != ''
@@ -296,26 +296,3 @@ function hideAlert() {
   alertDiv.classList.add('hide')
   alertDiv.classList.remove('show')
 }
-
-// // Natasha
-// // Função que ordena a array por data
-// function sortListByDate() {
-//   listOfTasks.sort((task1, task2) => {
-//     let date1
-//     let date2
-
-//     if (task1.time !== 'Dia todo') {
-//       date1 = new Date(`${task1.date} ${task1.time}`)
-//     } else {
-//       date1 = new Date(`${task1.date} 00:00`)
-//     }
-
-//     if (task2.time !== 'Dia todo') {
-//       date2 = new Date(`${task2.date} ${task2.time}`)
-//     } else {
-//       date2 = new Date(`${task2.date} 00:00`)
-//     }
-
-//     return date1.getTime() - date2.getTime()
-//   })
-// }
